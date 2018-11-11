@@ -1,6 +1,17 @@
 class ArtistsController < ApplicationController
+
+
   def index
-    @artists = Artist.all
+    if Admin::Preference.established?
+      @artists = Artist.order(name: Admin::Preference.first.artist_sort_order)
+    else
+      @artists = Artist.order(:name)
+    end
+    begin 
+      @artists = Artist.order(name: Admin::Preference.first.artist_sort_order)
+    rescue NoMethodError => e
+      @artists = Artist.order(:name)
+    end
   end
 
   def show
@@ -8,7 +19,12 @@ class ArtistsController < ApplicationController
   end
 
   def new
-    @artist = Artist.new
+    if Admin::Preference.established?
+      redirect_to artists_path if not Admin::Preference.first.allow_create_artists
+      @artist = Artist.new
+    else
+      @artist = Artist.new
+    end
   end
 
   def create

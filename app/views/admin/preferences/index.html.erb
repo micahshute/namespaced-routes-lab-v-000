@@ -1,0 +1,19 @@
+<%= form_for @preference do |f|%>
+    <div>
+        <%= f.label :artist_sort_order %>
+        <%= f.collection_select(:artist_sort_order, sort_orders, :val, :val) %>
+    </div>
+    <div>
+        <%= f.label :song_sort_order %>
+        <%= f.collection_select(:song_sort_order, sort_orders, :val, :val) %>
+    </div>
+    <div>
+        <%= f.label :allow_create_artists %>
+        <%= f.collection_select(:allow_create_artists, booleans, :val, :val) %>
+    </div>
+    <div>
+        <%= f.label :allow_create_songs %>
+        <%= f.collection_select(:allow_create_songs, booleans, :val, :val) %>
+    </div>
+    <%= f.submit %>
+<%end%>
