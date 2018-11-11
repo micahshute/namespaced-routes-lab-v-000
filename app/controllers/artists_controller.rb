@@ -2,11 +2,11 @@ class ArtistsController < ApplicationController
 
 
   def index
-    if Admin::Preference.established?
-      @artists = Artist.order(name: Admin::Preference.first.artist_sort_order)
-    else
-      @artists = Artist.order(:name)
-    end
+    # if Admin::Preference.established?
+    #   @artists = Artist.order(name: Admin::Preference.first.artist_sort_order)
+    # else
+    #   @artists = Artist.order(:name)
+    # end
     begin 
       @artists = Artist.order(name: Admin::Preference.first.artist_sort_order)
     rescue NoMethodError => e
